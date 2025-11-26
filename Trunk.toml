@@ -1,0 +1,7 @@
+[build]
+target = "wasm32-unknown-unknown"
+filehash = true
+
+[[bin]]
+name = "client-hydrate"
+path = "src/client.rs"
