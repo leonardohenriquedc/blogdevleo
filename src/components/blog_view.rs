@@ -10,39 +10,52 @@ pub fn blog_view(name: &ReqNameBlog) -> Html {
     let content = get_content_blog(name.name.clone());
 
     let css_main = css!({
-        table {
-      border-collapse: collapse;
-      /* junta as bordas */
-      width: 100%;
-      /* opcional, ocupar toda a largura */
-    }
 
-    table,
-    th,
-    td {
-      border: 1px solid #444;
-      /* cor da borda */
-    }
-
-    pre {
+            body {
       display: flex;
       justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
-    @media only screen and (min-width: 1025px) {
-      body>main {
-        max-width: 60dvw;
-      }
-    }
+            main {
+                max-width: 70%;
+                text-align: justify;
+            }
 
-    h1 {
-      text-align: center;
-    }
+            table {
+          border-collapse: collapse;
+          /* junta as bordas */
+          width: 100%;
+          /* opcional, ocupar toda a largura */
+        }
 
-    hr {
-      width: 100%;
-    }
-    });
+        table,
+        th,
+        td {
+          border: 1px solid #444;
+          /* cor da borda */
+        }
+
+        pre {
+          display: flex;
+          justify-content: center;
+        }
+
+        @media only screen and (min-width: 1025px) {
+          body>main {
+            max-width: 60dvw;
+          }
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        hr {
+          width: 100%;
+        }
+        });
 
     html! {
         <>
