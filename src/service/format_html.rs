@@ -12,6 +12,7 @@ macro_rules! format_html {
     </head>
     <body>
         {}
+        <script src=\"/pkg/app.js\"></script>
     </body>
     </html>
     ",

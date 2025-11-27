@@ -22,10 +22,14 @@ pub fn body_main() -> Html {
         text-align: justify;
         flex-direction: column;
         gap: 10px;
+        lang="pt-BR";
+        hyphens:auto;
+
     });
 
     let css_a = css! ({
         text-decoration: none;
+        text-align: justify;
     });
 
     html! {

@@ -1,8 +1,7 @@
-use std::env;
-
 use crate::css;
-use web_sys::window;
+use std::env;
 use yew::prelude::*;
+
 #[function_component(Header)]
 pub fn header() -> Html {
     let css_header = css!({
@@ -10,8 +9,8 @@ pub fn header() -> Html {
         margin: auto;
         justify-content: space-around;
         width: 100%;
+        align-items: center;
     });
-
     let css_h1 = css! ({
         cursor: pointer
     });
