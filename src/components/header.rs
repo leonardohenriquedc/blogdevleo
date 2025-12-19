@@ -1,4 +1,5 @@
 use crate::css;
+use askama::filters::format;
 use std::env;
 use yew::prelude::*;
 
@@ -23,7 +24,8 @@ pub fn header() -> Html {
     html! {
         <>
         <header style={css_header}>
-            <h1 style={css_h1}><a style={css_a} href={env::var("DOMAIN").unwrap()}> { "DevLeo.com" }</a></h1>
+            <h1 style={css_h1}><a style={css_a.clone()} href={env::var("DOMAIN").unwrap()}> { "DevLeo.com" }</a></h1>
+            <h1><a style={css_a} href={format!("{}blog/about.md", env::var("DOMAIN").unwrap())}>{" About "}</a></h1>
         </header>
         <hr />
         </>
