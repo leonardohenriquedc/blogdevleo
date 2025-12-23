@@ -20,7 +20,7 @@ impl BlogData {
 
                 let next = vec_posts.get(n + 1).unwrap();
 
-                if current.date < next.date {
+                if current.date > next.date {
                     vec_posts.swap(n, n + 1);
                     exchanged = true;
                 }
