@@ -1,10 +1,8 @@
 ---
-
 title: Entendo sobre bits e bytes e operadores logicos
 author: leonardo
 date: 2025-09-24
 tags: ["Bits", "Bytes", "Computação"]
-
 ---
 
 # Entendo sobre bits e bytes e operadores logicos
@@ -230,3 +228,5 @@ Temos agora o valor em decimal:
 
 Somando os valores:  
 1 + 2 + 0 + 8 + 0 + 0 + 64 + 128 = 203
+
+## Um atalho para a conversão
