@@ -2,44 +2,21 @@ use std::env;
 
 use yew::prelude::*;
 
-use crate::{css, service::get_all_name_title_blogs};
+use crate::service::get_all_name_title_blogs;
 
 #[function_component(BodyMain)]
 pub fn body_main() -> Html {
     let title_blogs = get_all_name_title_blogs();
 
-    let css_main = css!({
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    });
-
-    let css_ul = css!({
-        display: flex;
-        width: 60dvw;
-        justify-content: start;
-        text-align: justify;
-        flex-direction: column;
-        gap: 10px;
-        lang="pt-BR";
-        hyphens:auto;
-
-    });
-
-    let css_a = css! ({
-        text-decoration: none;
-        text-align: justify;
-    });
-
     html! {
-        <main style={css_main}>
-            <ul style={css_ul}>
+        <main class="d-flex flex-column align-items-center justify-content-center my-4">
+            <ul class="list-unstyled">
                 {
                     for title_blogs.iter().map(|(name, title)| {
                         html! {
-                            <li>
-                                <a style={css_a.clone()} href={format!("{}blog/{}",env::var("DOMAIN").unwrap(), name)}>
+                            <li class="mb-2">
+                                <a class="text-decoration-none text-body"
+                                   href={format!("{}blog/{}", env::var("DOMAIN").unwrap(), name)}>
                                     { title }
                                 </a>
                             </li>
