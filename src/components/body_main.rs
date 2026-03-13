@@ -10,7 +10,7 @@ pub fn body_main() -> Html {
 
     html! {
         <main class="d-flex flex-column align-items-center justify-content-center my-4">
-            <ul class="list-unstyled">
+            <ul>
                 {
                     for title_blogs.iter().map(|(name, title)| {
                         html! {
