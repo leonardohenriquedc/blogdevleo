@@ -230,3 +230,6 @@ Somando os valores:
 1 + 2 + 0 + 8 + 0 + 0 + 64 + 128 = 203
 
 ## Um atalho para a conversão
+
+Uma forma de converter um valor Binario para Hexadecimal é separar o binário em blocos de 4 bits, começando do bit menos significativo (direita) e depois convertendo cada bloco de 4 bits para seu equivalente hexadecimal. Por exemplo, o número binário `11001011` pode ser separado em `1100` e `1011`, que correspondem aos valores hexadecimais `C` e `B`, respectivamente. Então, o valor total em hexadecimal é `CB`.
+Essa técnica é muito útil para conversões rápidas e pode ser usada tanto para converter de binário para hexadecimal quanto vice-versa.
