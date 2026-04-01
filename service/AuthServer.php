@@ -1,11 +1,17 @@
 <?php
 
+namespace App\Server\Auth;
+
+use PDO;
+use Exception;
+
 require_once __DIR__ . "/../db/crud/User.php";
 require_once __DIR__ . "/../models/User.php";
 
 use Firebase\JWT\JWT;
 use App\Model\User as UserModel;
 use Db\Crud\User as UserCrud;
+use App\Dto\Login;
 
 class AuthServer
 {
