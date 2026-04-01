@@ -1,4 +1,6 @@
 .env
+.php-cs-fixer.cache
+.php-cs-fixer.dist.php
+phinx.php
 vendor/
 composer.lock
-
