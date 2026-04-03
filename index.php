@@ -4,6 +4,16 @@ use App\Controller\Blogs;
 
 require_once __DIR__ . "/controller/Blogs.php";
 
-$blogs = new Blogs();
+$controlerBlogs = new Blogs();
 
-$blogs->toHome();
+$to = $_GET["to"] ?? "home";
+
+switch ($to) {
+    case "blog":
+        $controlerBlogs->toBlog();
+        break;
+
+    default:
+        $controlerBlogs->toHome();
+        break;
+}
