@@ -2,8 +2,6 @@
 
 namespace App\Service;
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
 use Exception;
 use RecursiveDirectoryIterator;
 use DirectoryIterator;
@@ -14,7 +12,7 @@ use League\CommonMark\MarkdownConverter;
 
 class BlogsService
 {
-    private string $pathFiles = __DIR__ . "/../content/";
+    private string $pathFiles = __DIR__ . "/../../content/";
 
     public function getTitleAndRouter(): array
     {

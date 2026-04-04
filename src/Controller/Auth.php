@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . "/../service/AuthServer.php";
-
 use App\Server\Auth\AuthServer;
 
 class Auht

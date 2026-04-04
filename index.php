@@ -2,7 +2,7 @@
 
 use App\Controller\Blogs;
 
-require_once __DIR__ . "/controller/Blogs.php";
+require_once __DIR__ . "/vendor/autoload.php";
 
 $controlerBlogs = new Blogs();
 

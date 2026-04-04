@@ -3,8 +3,6 @@ namespace App\Controller;
 
 use App\Service\BlogsService;
 
-require_once __DIR__ . "/../service/BlogsService.php";
-
 class Blogs
 {
     private BlogsService $blogsService;
@@ -17,7 +15,7 @@ class Blogs
     public function toHome()
     {
         $nameAndTitles = $this->blogsService->getTitleAndRouter();
-        include __DIR__ . "/../view/home.php";
+        include __DIR__ . "/../../view/home.php";
         //exit();
     }
 
@@ -31,6 +29,6 @@ class Blogs
 
         $content = $this->blogsService->getBlog($router);
 
-        include __DIR__ . "/../view/view_blog.php";
+        include __DIR__ . "/../../view/view_blog.php";
     }
 }
