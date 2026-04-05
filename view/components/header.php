@@ -1,6 +1,18 @@
 <header>
-    <nav class="navbar navbar-light bg-light px-4 d-flex justify-content-around">
-    <a href="index.php" class="navbar-brand fs-1">BlogDevLeo.com</a>
-    <a href="index.php?to=blog&title=about.md" class="navbar-link fs-1 text-decoration-none">About</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.php">BlogDevLeo.com</a>
+
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="menu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.php?to=blog&title=contatos.php">Contatos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?to=blog&title=about.md">Sobre</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>
