@@ -1,19 +1,22 @@
 <?php
 
 use App\Controller\Blogs;
+use App\Controller\BlogsAdmin;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-$controlerBlogs = new Blogs();
-
+$controllerBlogs = new Blogs();
+$controllerBlogsAdmin = new BlogsAdmin();
 $to = $_GET["to"] ?? "home";
 
 switch ($to) {
     case "blog":
-        $controlerBlogs->toBlog();
+        $controllerBlogs->toBlog();
         break;
-
+    case "new_blog":
+        $controllerBlogsAdmin->newBlog();
+        break;
     default:
-        $controlerBlogs->toHome();
+        $controllerBlogs->toHome();
         break;
 }

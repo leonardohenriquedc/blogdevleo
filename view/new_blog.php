@@ -10,15 +10,20 @@
     <?php include __DIR__ . "/components/header.php"; ?>
 
     <main class="container">
-        <form class="form-control" method="POST" action="../controller/BlogsAdmin.php">
-            <div class="mb-3">
+        <form class="form-control" method="POST" action="../index.php?to=new_blog">
+            <div class="row g-3 mb-3">
+            <div class="col-md-6">
                 <label for="password">Insira a senha</label>
-                <input type="password" name="password">
+                <input type="password" class="form-control" placeholder="password" name="password">
+            </div>
+            <div class="col-md-6">
+                <label for="email">Insira o email</label>
+                <input type="email" class="form-control" placeholder="example@gmail.com" name="email">
+            </div>
             </div>
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
                     <input type="date" name="date" class="form-control">
-
                 </div>
 
                 <div class="col-md-6">
@@ -33,6 +38,7 @@
             <div class="mb-3">
                 <textarea class="form-control" name="content" rows="50" placeholder="Insira o conteúdo do blog"></textarea>
             </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </main>
 
