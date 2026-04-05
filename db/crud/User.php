@@ -33,7 +33,7 @@ class User
         return new UserModel($data["name"], $data["email"], $data["password"]);
     }
 
-    public function save(Login $login): bool
+    public function save(UserModel $login): bool
     {
         $stmt = $this->connection->prepare(
             "INSERT INTO users(user, email, password) VALUES (:user, :email, :password)",
