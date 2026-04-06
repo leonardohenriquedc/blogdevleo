@@ -3,8 +3,10 @@
 namespace Db\Crud;
 
 require_once __DIR__ . "/../../config/Database.php";
-
+use Config\Database;
 use App\Model\User as UserModel;
+use PDO;
+use PDOException;
 
 class User
 {
@@ -12,7 +14,7 @@ class User
 
     public function __construct()
     {
-        $this->$connection = Database::getConnection();
+        $this->connection = Database::getConnection();
     }
 
     public function findByEmail(string $email): ?UserModel
