@@ -12,7 +12,10 @@
       <main class="container d-flex justify-content-center align-items-center vh-100">
           <div class="card shadow p-4" style="width: 350px;">
               <h3 class="text-center mb-3">Login</h3>
-              <form method="POST" action="index.php?to=login">
+              <?php echo isset($error) && !empty($error)
+                  ? "<p class='text-danger text-center'>$error</p>"
+                  : ""; ?>
+              <form method="POST" action="/auth/validate">
                   <div class="mb-3">
                       <label class="form-label">Usuário</label>
                       <input type="text" name="email" class="form-control" required>
@@ -25,6 +28,7 @@
                   <button type="submit" class="btn btn-primary w-100">
                       Entrar
                   </button>
+                  <?php echo $token; ?>
               </form>
           </div>
       </main>

@@ -1,22 +1,15 @@
 <?php
 
-use App\Controller\Blogs;
-use App\Controller\BlogsAdmin;
+session_start();
 
-require_once __DIR__ . "/vendor/autoload.php";
+require __DIR__ . "/vendor/autoload.php";
 
-$controllerBlogs = new Blogs();
-$controllerBlogsAdmin = new BlogsAdmin();
-$to = $_GET["to"] ?? "home";
+use Dotenv\Dotenv;
 
-switch ($to) {
-    case "blog":
-        $controllerBlogs->toBlog();
-        break;
-    case "new_blog":
-        $controllerBlogsAdmin->newBlog();
-        break;
-    default:
-        $controllerBlogs->toHome();
-        break;
-}
+use App\Core\Router;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$router = new Router();
+$router->run();

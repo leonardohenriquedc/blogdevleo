@@ -1,29 +1,48 @@
 <?php
 
-use App\Server\Auth\AuthServer;
+namespace App\Controller;
 
-class Auht
+use App\Service\Auth as AuthService;
+use App\Core\Controller;
+use App\Dto\Login;
+use App\Core\Exceptions\CrendentialsExceptions;
+use App\Core\Session;
+
+class Auth extends Controller
 {
-    public static function login()
+    public function login()
     {
-        $email = $_POST["email"] ?? null;
-        $password = $_POST["password"] ?? null;
-
-        if ($email === null || $password === null) {
-            throw new Exception("Layers null");
-        }
-
-        $userDto = new UserDTO($email, $password);
-
-        $authServer = new AuthServer();
-
-        $token = $authServer->validateLogin($userDto);
-
-        header("Authorization: Bearer" . $token);
+        $this->view("login", ["error" => Session::flash("error")]);
     }
 
-    private static function renderPageNewBlog()
+    public function validate()
     {
-        require_once __DIR__ . "/../view/new_blog.php";
+        if (isset($_POST["email"]) && isset($_POST["password"])) {
+            $email = $_POST["email"] ?? null;
+            $password = $_POST["password"] ?? null;
+
+            if ($email === null || $password === null) {
+                throw new Exception("Layers null");
+            }
+
+            $userDto = new Login($email, $password);
+
+            try {
+                $authServer = new AuthService();
+
+                $token = $authServer->validateLogin($userDto);
+
+                header("Authorization: Bearer" . $token);
+                echo $token;
+                exit();
+            } catch (CrendentialsExceptions $e) {
+                Session::set("error", $e->getMessage());
+                redirect("/auth/login");
+            } catch (Exception $e) {
+                $this->view("login", [
+                    "error" => "Falha interna tente novamente",
+                ]);
+            }
+        }
     }
 }

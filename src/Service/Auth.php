@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Service;
-require_once __DIR__ . "/../../db/crud/User.php";
+
+use Db\Repository\User;
 use PDO;
-use Exception;
+use App\Core\Exceptions\CrendentialsExceptions;
 
 use Firebase\JWT\JWT;
 use App\Model\User as UserModel;
-use Db\Crud\User as UserCrud;
+use Db\Repository\User as UserCrud;
 use App\Dto\Login;
 
 class Auth
@@ -19,7 +20,7 @@ class Auth
         $userModel = $userCrud->findByEmail($loginUser->email) ?? null;
 
         if (!$userModel) {
-            throw new Exception("User not found");
+            return throw new CrendentialsExceptions("User not found");
         }
 
         $passwordEncripted = password_hash(
@@ -27,8 +28,8 @@ class Auth
             PASSWORD_BCRYPT,
         );
 
-        if (!password_verify($loginUser->password, $passwordEncripted)) {
-            throw new Exception("Invalid password");
+        if (!password_verify($userModel->password, $passwordEncripted)) {
+            return throw new CrendentialsExceptions("Invalid password");
         }
 
         error_log(
