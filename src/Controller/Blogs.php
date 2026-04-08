@@ -17,7 +17,6 @@ class Blogs extends Controller
     {
         $nameAndTitles = $this->blogsService->getTitleAndRouter();
         $this->view("home", $nameAndTitles);
-        //exit();
     }
 
     public function toError()

@@ -18,6 +18,8 @@ class BlogsService
     {
         $titleAndfileNames = [];
 
+        $intermediaryArray = [];
+
         foreach (new DirectoryIterator($this->pathFiles) as $file) {
             if ($file->isDot() || !$file->isFile()) {
                 continue;
@@ -29,9 +31,21 @@ class BlogsService
 
             $header = $this->getMetadata($file->getPathname());
 
-            $titleAndfileNames[] = [
+            $intermediaryArray[] = [
                 "title" => $header["title"],
                 "router" => $file->getBasename(".md"),
+                "date" => $header["date"],
+            ];
+        }
+
+        usort($intermediaryArray, function ($a, $b) {
+            return strtotime($b["date"]) - strtotime($a["date"]);
+        });
+
+        foreach ($intermediaryArray as $item) {
+            $titleAndfileNames[] = [
+                "title" => $item["title"],
+                "router" => $item["router"],
             ];
         }
 
@@ -44,10 +58,11 @@ class BlogsService
 
     public function getBlog(string $router): string
     {
-        $router .= ".md";
+        $router = $router . ".md";
         $filePath = $this->pathFiles . $router;
 
         if (!file_exists($filePath)) {
+            error_log("File not found: " . $filePath);
             throw new Exception("Blog not found");
         }
 
