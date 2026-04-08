@@ -10,17 +10,7 @@
     <?php include __DIR__ . "/components/header.php"; ?>
 
     <main class="container">
-        <form class="form-control" method="POST" action="../index.php?to=new_blog">
-            <div class="row g-3 mb-3">
-            <div class="col-md-6">
-                <label for="password">Insira a senha</label>
-                <input type="password" class="form-control" placeholder="password" name="password">
-            </div>
-            <div class="col-md-6">
-                <label for="email">Insira o email</label>
-                <input type="email" class="form-control" placeholder="example@gmail.com" name="email">
-            </div>
-            </div>
+        <form class="form-control" method="POST" action="/blogs_admin/save_blog">
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
                     <input type="date" name="date" class="form-control">
