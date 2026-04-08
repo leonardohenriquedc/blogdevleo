@@ -10,6 +10,7 @@ use Firebase\JWT\JWT;
 use App\Model\User as UserModel;
 use Db\Repository\User as UserCrud;
 use App\Dto\Login;
+use Firebase\JWT\Key;
 
 class Auth
 {
@@ -20,7 +21,7 @@ class Auth
         $userModel = $userCrud->findByEmail($loginUser->email) ?? null;
 
         if (!$userModel) {
-            return throw new CrendentialsExceptions("User not found");
+            throw new CrendentialsExceptions("User not found");
         }
 
         $passwordEncripted = password_hash(
@@ -29,7 +30,7 @@ class Auth
         );
 
         if (!password_verify($userModel->password, $passwordEncripted)) {
-            return throw new CrendentialsExceptions("Invalid password");
+            throw new CrendentialsExceptions("Invalid password");
         }
 
         error_log(
@@ -45,7 +46,7 @@ class Auth
     public function validateToken(string $token): ?string
     {
         $secretKey = $_ENV["SECRET_KEY"];
-        $decode = JWT::decode($token, $secretKey, ["HS256"]);
+        $decode = JWT::decode($token, new Key($secretKey, "HS256"));
 
         $user = new UserCrud()->findByEmail($decode->email);
 
