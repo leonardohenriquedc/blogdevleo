@@ -31,7 +31,7 @@ class BlogsService
 
             $titleAndfileNames[] = [
                 "title" => $header["title"],
-                "router" => $file->getBasename(),
+                "router" => $file->getBasename(".md"),
             ];
         }
 
@@ -44,6 +44,7 @@ class BlogsService
 
     public function getBlog(string $router): string
     {
+        $router .= ".md";
         $filePath = $this->pathFiles . $router;
 
         if (!file_exists($filePath)) {

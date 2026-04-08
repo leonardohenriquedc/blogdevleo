@@ -31,7 +31,7 @@ class Blogs extends Controller
             echo "<h1>Page not found</h1>";
         }
 
-        $title = explode($router, ".");
+        $title = explode("-", $router);
 
         $content = $this->blogsService->getBlog($router);
 
