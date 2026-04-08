@@ -2,8 +2,9 @@
 namespace App\Controller;
 
 use App\Service\BlogsService;
+use App\Core\Controller;
 
-class Blogs
+class Blogs extends Controller
 {
     private BlogsService $blogsService;
 
@@ -15,20 +16,25 @@ class Blogs
     public function toHome()
     {
         $nameAndTitles = $this->blogsService->getTitleAndRouter();
-        include __DIR__ . "/../../view/home.php";
+        $this->view("home", $nameAndTitles);
         //exit();
     }
 
-    public function toBlog()
+    public function toError()
     {
-        $router = $_GET["title"] ?? "";
+        $this->view("error");
+    }
 
+    public function toBlog($router)
+    {
         if (empty($router)) {
             echo "<h1>Page not found</h1>";
         }
 
+        $title = explode($router, ".");
+
         $content = $this->blogsService->getBlog($router);
 
-        include __DIR__ . "/../../view/view_blog.php";
+        $this->view("view_blog", ["data" => $content, "title" => $title[1]]);
     }
 }

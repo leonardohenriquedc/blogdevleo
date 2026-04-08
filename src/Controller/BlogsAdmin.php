@@ -6,25 +6,51 @@ use App\Dto\BlogInput;
 use App\Service\BlogsAdminService;
 use App\Dto\Login;
 use App\Service\Auth;
+use App\Core\Controller;
 use DateTime;
 
-class BlogsAdmin
+class BlogsAdmin extends Controller
 {
     private BlogsAdminService $blogService;
+    private Auth $serverAuth;
 
     public function __construct()
     {
         $this->blogService = new BlogsAdminService();
+        $this->serverAuth = new Auth();
     }
 
     public function newBlog()
     {
-        include __DIR__ . "/../../view/new_blog.php";
+        $token = $_COOKIE["token"] ?? "";
+
+        if (empty($token)) {
+            redirect("/blogs/to_error");
+            exit();
+        }
+
+        $this->view("new_blog", []);
         exit();
     }
 
     public function saveBlog()
     {
+        $token = $_COOKIE["token"] ?? "";
+
+        if (empty($token)) {
+            redirect("/blogs/to_home");
+            exit();
+        }
+
+        $result = $this->serverAuth->validateToken($token);
+
+        if ($result === null) {
+            redirect("/blogs/to_home");
+            exit();
+        }
+
+        setcookie("token", $result, time() + 3600);
+
         $blogData = new BlogInput();
 
         $password = $_POST["password"] ?? "";
@@ -42,52 +68,13 @@ class BlogsAdmin
         $blogData->author = $author;
         $blogData->content = $content;
 
-        //debug temporario de senha
-        if ($password !== "admin" || empty($password)) {
-            echo "nao sobrou nada pro beta kkk";
-        }
-
         $result = $this->blogService->createBlog($blogData);
 
         if ($result === false) {
             echo "Erro ao inserir blog";
         }
 
-        header("Location: index.php?to=blog&title=" . $title . ".md");
+        header("Location: /blogs/to_blog/" . strtolower($title) . ".md");
         exit();
-    }
-
-    public function toLoginPage()
-    {
-        include __DIR__ . "/../../view/login.php";
-        exit();
-    }
-
-    public function login()
-    {
-        $password = $_POST["password"];
-        $email = $_POST["email"];
-
-        if ($email === "" || $password === "") {
-            header("Location: index.php?to=home");
-            exit();
-        }
-
-        $login = new Login();
-        $login->email = $email;
-        $login->password = $password;
-
-        try {
-            $serverAuth = new Auth();
-            $token = $serverAuth->validateLogin($login);
-
-            setCookie("auth_token", $token, time() + 3600, "/");
-
-            header("Location: index.php?to=new_blog");
-            exit();
-        } catch (Exception $e) {
-            header("Location: index.php?to=error");
-            exit();
-        }
     }
 }

@@ -32,8 +32,8 @@ class Auth extends Controller
 
                 $token = $authServer->validateLogin($userDto);
 
-                header("Authorization: Bearer" . $token);
-                echo $token;
+                setcookie("token", $token, time() + 3600, "/");
+                redirect("/blogs_admin/new_blog");
                 exit();
             } catch (CrendentialsExceptions $e) {
                 Session::set("error", $e->getMessage());
