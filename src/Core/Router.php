@@ -6,13 +6,18 @@ class Router
 {
     public function run()
     {
-        $url = trim($_SERVER["REQUEST_URI"] ?? "auth/login", "/");
+        $url = trim($_SERVER["REQUEST_URI"] ?? "", "/");
+
+        if ($url === "") {
+            $url = "blogs/to_home";
+        }
 
         $url = explode("/", $url);
 
-        $controller = "App\\Controller\\" . ucfirst($url[0]);
+        $controller =
+            "App\\Controller\\" . ucfirst($this->snakeToCamel($url[0]));
 
-        $method = $url[1] ?? "index";
+        $method = $this->snakeToCamel($url[1] ?? "to_home");
 
         $params = array_slice($url, 2);
 
@@ -27,6 +32,11 @@ class Router
         }
 
         call_user_func_array([$controllerInstance, $method], $params);
+    }
+
+    function snakeToCamel(string $string): string
+    {
+        return lcfirst(str_replace("_", "", ucwords($string, "_")));
     }
 
     private function dd(mixed $data)
