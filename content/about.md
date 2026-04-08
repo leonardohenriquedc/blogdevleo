@@ -2,7 +2,7 @@
 
 title: About
 author: leonardo
-date: 2025-10-07
+date: 2025-01-07
 
 ---
 
