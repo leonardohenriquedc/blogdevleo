@@ -22,12 +22,7 @@ class BlogsAdmin extends Controller
 
     public function newBlog()
     {
-        $token = $_COOKIE["token"] ?? "";
-
-        if (empty($token)) {
-            redirect("/blogs/to_error");
-            exit();
-        }
+        $this->handle("AuthMiddleware");
 
         $this->view("new_blog", []);
         exit();
@@ -35,21 +30,7 @@ class BlogsAdmin extends Controller
 
     public function saveBlog()
     {
-        $token = $_COOKIE["token"] ?? "";
-
-        if (empty($token)) {
-            redirect("/blogs/to_home");
-            exit();
-        }
-
-        $result = $this->serverAuth->validateToken($token);
-
-        if ($result === null) {
-            redirect("/blogs/to_home");
-            exit();
-        }
-
-        setcookie("token", $result, time() + 3600);
+        $this->handle("AuthMiddleware");
 
         $blogData = new BlogInput();
 
