@@ -16,6 +16,9 @@
                   ? "<p class='text-danger text-center'>$error</p>"
                   : ""; ?>
               <form method="POST" action="/auth/validate">
+                  <input type="hidden" name="csrf_token" value="<?= App\Core\Session::get(
+                      "csrf_token",
+                  ) ?>">
                   <div class="mb-3">
                       <label class="form-label">Usuário</label>
                       <input type="text" name="email" class="form-control" required>

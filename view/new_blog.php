@@ -11,6 +11,9 @@
 
     <main class="container">
         <form class="form-control" method="POST" action="/blogs_admin/save_blog">
+            <input type="hidden" name="csrf_token" value="<?= App\Core\Session::get(
+                "csrf_token",
+            ) ?>">
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
                     <input type="date" name="date" class="form-control">
