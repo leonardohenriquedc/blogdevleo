@@ -1,12 +1,24 @@
 <?php
 
 namespace App\Core;
+use App\Core\Middlewares\CsrfMiddleware;
 
 class Router
 {
     public function run()
     {
         $url = trim($_SERVER["REQUEST_URI"] ?? "", "/");
+
+        if (
+            in_array($_SERVER["REQUEST_METHOD"], [
+                "POST",
+                "PUT",
+                "DELETE",
+                "PATCH",
+            ])
+        ) {
+            new CsrfMiddleware()->execute();
+        }
 
         if ($url === "") {
             $url = "blogs/to_home";
