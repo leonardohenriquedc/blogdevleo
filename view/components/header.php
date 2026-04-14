@@ -11,7 +11,12 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/blogs/to_blog/contacts">Contatos</a></li>
                     <li class="nav-item"><a class="nav-link" href="/blogs/to_blog/about">Sobre</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/auth/login">Entrar</a></li>
+                    <?php if (empty($_COOKIE["token"])): ?>
+                        <li class="nav-item"><a class="nav-link" href="/auth/login">Entrar</a></li>
+                    <?php else: ?>
+                        <li class="nav-item"><a class="nav-link" href="/blogs_admin/new_blog">Criar</a></li>
+                    <?php endif; ?>
+                     <!--<li class="nav-item"><a class="nav-link" href="/auth/login">Entrar</a></li>-->
                 </ul>
             </div>
         </div>
