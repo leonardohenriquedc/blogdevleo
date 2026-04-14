@@ -8,11 +8,14 @@ class Controller
 {
     public function view($view, $data = [])
     {
-        if (!file_exists(__DIR__ . "/../../view/" . $view . ".php")) {
+        if (
+            !file_exists(__DIR__ . "/../../view/components/" . $view . ".php")
+        ) {
             die("View not found");
         }
+        $view = "/components/" . $view . ".php";
         extract($data);
-        require_once __DIR__ . "/../../view/" . $view . ".php";
+        require_once __DIR__ . "/../../view/main.php";
     }
 
     public function dd(mixed $data)

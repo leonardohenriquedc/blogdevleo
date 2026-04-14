@@ -55,7 +55,7 @@ class BlogsAdmin extends Controller
             echo "Erro ao inserir blog";
         }
 
-        header("Location: /blogs/to_blog/" . strtolower($title) . ".md");
+        redirect("/blogs/to_blog/" . strtolower($title));
         exit();
     }
 }
