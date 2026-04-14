@@ -16,7 +16,6 @@
                     <?php else: ?>
                         <li class="nav-item"><a class="nav-link" href="/blogs_admin/new_blog">Criar</a></li>
                     <?php endif; ?>
-                     <!--<li class="nav-item"><a class="nav-link" href="/auth/login">Entrar</a></li>-->
                 </ul>
             </div>
         </div>
