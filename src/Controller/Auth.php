@@ -33,7 +33,7 @@ class Auth extends Controller
                 $token = $authServer->validateLogin($userDto);
 
                 setcookie("token", $token, time() + 3600, "/");
-                redirect("/blogs_admin/new_blog");
+                redirect("/blogs/to_home");
                 exit();
             } catch (CrendentialsExceptions $e) {
                 Session::set("error", $e->getMessage());
