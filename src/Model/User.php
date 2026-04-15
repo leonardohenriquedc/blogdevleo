@@ -4,7 +4,7 @@ namespace App\Model;
 
 class User
 {
-    public string $user;
+    public string $name;
     public string $email;
     public string $password;
 
