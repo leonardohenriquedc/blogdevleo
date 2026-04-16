@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Service\Auth as AuthService;
 use App\Core\Controller;
-use App\Dto\Login;
 use App\Core\Exceptions\CrendentialsExceptions;
 use App\Core\Session;
+use App\Model\User;
 
 class Auth extends Controller
 {
@@ -25,12 +24,17 @@ class Auth extends Controller
                 throw new Exception("Layers null");
             }
 
-            $userDto = new Login($email, $password);
+            $user = new User("", $email, $password);
 
             try {
-                $authServer = new AuthService();
+                $token = $user->validateLogin();
 
-                $token = $authServer->validateLogin($userDto);
+                if (!$token) {
+                    $this->view("login", [
+                        "error" => "Falha interna tente novamente",
+                    ]);
+                    exit();
+                }
 
                 setcookie("token", $token, time() + 3600, "/");
                 redirect("/blogs/to_home");

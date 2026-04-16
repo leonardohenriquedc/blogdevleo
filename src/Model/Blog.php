@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Service;
+namespace App\Model;
 
+use DateTime;
 use Exception;
 use RecursiveDirectoryIterator;
 use DirectoryIterator;
@@ -10,9 +11,60 @@ use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
 
-class BlogsService
+class Blog
 {
-    private string $pathFiles = __DIR__ . "/../../content/";
+    private string $path = __DIR__ . "/../../content/";
+
+    public string $title;
+    public string $author;
+    public DateTime $date;
+    public string $content;
+    public array $tags;
+
+    public function __construct(
+        string $title = "",
+        string $author = "",
+        DateTime $date = null,
+        string $content = "",
+    ) {
+        $this->title = $title;
+        $this->author = $author;
+        $this->date = $date ?? new DateTime();
+        $this->content = $content;
+    }
+
+    public function hasEmpty(): bool
+    {
+        return empty($this->title) ||
+            empty($this->author) ||
+            empty($this->content) ||
+            $this->date === null;
+    }
+
+    public function createBlog(): bool
+    {
+        if ($this->hasEmpty()) {
+            return false;
+        }
+
+        $content = "";
+        $content .= "---\n";
+        $content .= "title: " . $this->title . "\n";
+        $content .= "author: " . $this->author . "\n";
+        $content .= "date: " . $this->date->format("Y-m-d") . "\n";
+        $content .= "---\n\n";
+        $content .= $this->content;
+
+        $filename = strtolower(str_replace(" ", "-", $this->title)) . ".md";
+
+        $result = file_put_contents($this->path . $filename, $content);
+
+        if (!$result) {
+            return false;
+        }
+
+        return true;
+    }
 
     public function getTitleAndRouter(): array
     {
@@ -20,7 +72,7 @@ class BlogsService
 
         $intermediaryArray = [];
 
-        foreach (new DirectoryIterator($this->pathFiles) as $file) {
+        foreach (new DirectoryIterator($this->path) as $file) {
             if ($file->isDot() || !$file->isFile()) {
                 continue;
             }
@@ -59,7 +111,7 @@ class BlogsService
     public function getBlog(string $router): string
     {
         $router = $router . ".md";
-        $filePath = $this->pathFiles . $router;
+        $filePath = $this->path . $router;
 
         if (!file_exists($filePath)) {
             error_log("File not found: " . $filePath);

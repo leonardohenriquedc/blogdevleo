@@ -3,7 +3,7 @@
 namespace App\Core\Middlewares;
 
 use App\Core\Session;
-use App\Service\Auth as AuthService;
+use App\Model\User;
 
 class AuthMiddleware
 {
@@ -15,9 +15,9 @@ class AuthMiddleware
             exit();
         }
 
-        $authService = new AuthService();
+        $user = new User();
 
-        $newToken = $authService->validateToken($token);
+        $newToken = $user->validateToken($token);
         if (!$newToken) {
             header("Location: /auth/login");
             exit();

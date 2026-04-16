@@ -1,21 +1,21 @@
 <?php
 namespace App\Controller;
 
-use App\Service\BlogsService;
 use App\Core\Controller;
+use App\Model\Blog;
 
 class Blogs extends Controller
 {
-    private BlogsService $blogsService;
+    private Blog $blog;
 
     public function __construct()
     {
-        $this->blogsService = new BlogsService();
+        $this->blog = new Blog();
     }
 
     public function toHome()
     {
-        $nameAndTitles = $this->blogsService->getTitleAndRouter();
+        $nameAndTitles = $this->blog->getTitleAndRouter();
         $this->view("home", $nameAndTitles);
     }
 
@@ -32,7 +32,7 @@ class Blogs extends Controller
 
         $title = explode("-", $router);
 
-        $content = $this->blogsService->getBlog($router);
+        $content = $this->blog->getBlog($router);
 
         $this->view("view_blog", ["data" => $content, "title" => $title[1]]);
     }

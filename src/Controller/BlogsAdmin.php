@@ -2,22 +2,21 @@
 
 namespace App\Controller;
 
-use App\Dto\BlogInput;
 use App\Service\BlogsAdminService;
-use App\Dto\Login;
-use App\Service\Auth;
 use App\Core\Controller;
 use DateTime;
+use App\Model\User;
+use App\Model\Blog;
 
 class BlogsAdmin extends Controller
 {
-    private BlogsAdminService $blogService;
-    private Auth $serverAuth;
+    private Blog $blog;
+    private User $user;
 
     public function __construct()
     {
-        $this->blogService = new BlogsAdminService();
-        $this->serverAuth = new Auth();
+        $this->blog = new Blog();
+        $this->user = new User();
     }
 
     public function newBlog()
@@ -32,8 +31,6 @@ class BlogsAdmin extends Controller
     {
         $this->handle("AuthMiddleware");
 
-        $blogData = new BlogInput();
-
         $password = $_POST["password"] ?? "";
 
         $date = new DateTime($_POST["date"]);
@@ -44,12 +41,12 @@ class BlogsAdmin extends Controller
 
         $content = $_POST["content"] ?? "";
 
-        $blogData->title = $title;
-        $blogData->date = $date;
-        $blogData->author = $author;
-        $blogData->content = $content;
+        $this->blog->title = $title;
+        $this->blog->date = $date;
+        $this->blog->author = $author;
+        $this->blog->content = $content;
 
-        $result = $this->blogService->createBlog($blogData);
+        $result = $this->blog->createBlog();
 
         if ($result === false) {
             echo "Erro ao inserir blog";
