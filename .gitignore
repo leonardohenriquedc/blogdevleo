@@ -2,4 +2,5 @@
 .php-cs-fixer.cache
 .php-cs-fixer.dist.php
 phinx.php
+server.php
 vendor/
