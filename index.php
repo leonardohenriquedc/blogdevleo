@@ -15,4 +15,10 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $router = new Router();
+
+$router->addRouter("/blogs/to_home", []);
+$router->addRouter("/blogs/to_blog", []);
+$router->addRouter("/blogs_admin/new_blog", ["Authorization", "IdempotencyKey"]);
+$router->addRouter("/blogs_admin/save_blog", ["Authorization", "IdempotencyKey"]);
+
 $router->run();

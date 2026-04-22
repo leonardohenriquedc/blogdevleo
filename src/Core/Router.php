@@ -5,10 +5,10 @@ use App\Core\Middlewares\CsrfMiddleware;
 
 class Router
 {
+    public array $routers = [];
+
     public function run()
     {
-        $url = trim($_SERVER["REQUEST_URI"] ?? "", "/");
-
         if (
             in_array($_SERVER["REQUEST_METHOD"], [
                 "POST",
@@ -20,11 +20,15 @@ class Router
             new CsrfMiddleware()->execute();
         }
 
-        if ($url === "") {
+        $url = trim($_SERVER["REQUEST_URI"] ?? "", "/");
+
+        if ($url === "" || $url === "/") {
             $url = "blogs/to_home";
         }
 
         $url = explode("/", $url);
+
+        $this->verifyAndRunMiddlaware($url[0], $url[1]);
 
         $controller =
             "App\\Controller\\" . ucfirst($this->snakeToCamel($url[0]));
@@ -33,6 +37,42 @@ class Router
 
         $params = array_slice($url, 2);
 
+        $this->instanceController($controller, $method, $params);
+    }
+
+    private function verifyAndRunMiddlaware(
+        string $controller,
+        string $method,
+    ) {
+
+        $path = "/" . $controller . "/" . $method;
+        $middlewares = $this->routers[$path] ?? [];
+
+        if (empty($middlewares)) {
+            return;
+        }
+
+        foreach ($middlewares as $middleware) {
+            if (!class_exists($middleware)) {
+                break;
+            }
+
+            $middlewareInstance = new $middleware();
+            $middlewareInstance->execute();
+        }
+
+    }
+
+    public function addRouter(string $router, array $middlewares)
+    {
+        $this->routers[$router] = $middlewares;
+    }
+
+    private function instanceController(
+        string $controller,
+        string $method,
+        array $params,
+    ) {
         if (!class_exists($controller)) {
             die("Controller not found: " . $controller);
         }
@@ -46,7 +86,7 @@ class Router
         call_user_func_array([$controllerInstance, $method], $params);
     }
 
-    function snakeToCamel(string $string): string
+    private function snakeToCamel(string $string): string
     {
         return lcfirst(str_replace("_", "", ucwords($string, "_")));
     }
