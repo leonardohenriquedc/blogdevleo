@@ -26,9 +26,7 @@ class Router
             $url = "blogs/to_home";
         }
 
-        $url = explode("/", $url);
-
-        $this->verifyAndRunMiddlaware($url[0], $url[1]);
+        $url = explode("/", $url);        
 
         $controller =
             "App\\Controller\\" . ucfirst($this->snakeToCamel($url[0]));
@@ -37,12 +35,14 @@ class Router
 
         $params = array_slice($url, 2);
 
+        $this->verifyAndRunMiddlaware($url[0] ?? "blogs", $url[1] ?? "to_home");
+
         $this->instanceController($controller, $method, $params);
     }
 
     private function verifyAndRunMiddlaware(
         string $controller,
-        string $method,
+        string $method
     ) {
 
         $path = "/" . $controller . "/" . $method;
