@@ -8,4 +8,8 @@ if ($uri !== "/" && file_exists($file)) {
     return false;
 }
 
+if ($uri === "/.env"){
+    return false;
+}
+
 require __DIR__ . "/index.php";
