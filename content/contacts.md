@@ -1,27 +1,25 @@
----
-title: Contacts
-author: Leonardo
+--- 
+
+title: Contacts  
+author: Leonardo  
 date: 2025-01-08
----
-
-# 📬 Contato
-
-- ✉️ **Email:**  
-  leodamascenodev@proton.me  
 
 ---
 
-# 🌐 Projetos
+## 📬 Contato
 
-- 📝 **Blog:**  
-  [blogdevleo](https://blogdevleo.onrender.com)
+* ✉️ **Email:**  
+  leodamascenodev@proton.me
 
----
+## 🌐 Projetos
 
-# 💼 Redes Profissionais
+* 📝 **Blog:**  
+  [blogdevleo](https://blogdevleo.com/)
 
-- 🔗 **LinkedIn:**  
-  [Leonardo Henrique](https://www.linkedin.com/in/leonardo-henrique-b82852197/)
+## 💼 Redes Profissionais
 
-- 💻 **GitHub:**  
-  [leonardohenriquedc](https://github.com/leonardohenriquedc)
+🔗 **LinkedIn:**  
+[Leonardo Henrique](https://www.linkedin.com/in/leonardo-henrique-b82852197/)
+
+💻 **GitHub:**  
+[leonardohenriquedc](https://github.com/leonardohenriquedc)
