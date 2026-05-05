@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use DateTime;
 use PDO;
 use App\Core\Exceptions\CrendentialsExceptions;
 
@@ -15,6 +16,12 @@ class User
     public string $name;
     public string $email;
     public string $password;
+
+    public int $attemps;
+
+    public DateTime $last_attemp;
+
+    public DateTime $blocked_until;
 
     public function __construct(
         string $name = "",
