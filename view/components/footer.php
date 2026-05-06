@@ -4,7 +4,7 @@
     <div class="row gy-3 align-items-center">
 
       <!-- Marca -->
-      <div class="col-md-4">
+      <div class="col-md-4 text-md-center">
         <h6 class="fw-bold mb-1">BlogDevLeo</h6>
         <p class="small text-secondary mb-0">
           Conteúdo sobre desenvolvimento, tecnologia e boas práticas.
